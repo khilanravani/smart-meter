@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -16,9 +17,6 @@ const styles = theme => ({
     padding: '0 8rem',
     backgroundColor: theme.palette.background.paper
   },
-  listItem: {
-    flex: '0 0 50%'
-  },
   card: {
     width: '100%'
   },
@@ -30,6 +28,11 @@ const styles = theme => ({
     margin: theme.spacing.unit,
     alignSelf: 'center',
   },
+  link: {
+    textDecoration: 'none',
+    color: 'initial',
+    flex: '0 0 50%'
+  }
 });
 
 function Home(props) {
@@ -37,23 +40,25 @@ function Home(props) {
   return (
     <List className={classes.root}>
       {data.data.map((meter) => 
-        <ListItem className={classes.listItem}>
-          <Card className={classes.card}>
-            <CardContent className={classes.cardContent}>
-              <div>
+        <Link to={`/userdetails/${meter.meterid}`} className={classes.link}>
+          <ListItem>
+            <Card className={classes.card}>
+              <CardContent className={classes.cardContent}>
                 <div>
-                  <p>Name: {meter.name}</p>
+                  <div>
+                    <p>Name: {meter.name}</p>
+                  </div>
+                  <div>
+                    <p>Meter ID: {meter.meterid}</p>
+                  </div>
                 </div>
-                <div>
-                  <p>Meter ID: {meter.meterid}</p>
-                </div>
-              </div>
-              <Button variant="contained" color="secondary" className={classes.button}>
-                Block Supply
-              </Button>
-            </CardContent>
-          </Card>
-        </ListItem>
+                <Button variant="contained" color="secondary" className={classes.button}>
+                  Block Supply
+                </Button>
+              </CardContent>
+            </Card>
+          </ListItem>
+        </Link>
         )
       }
     </List>

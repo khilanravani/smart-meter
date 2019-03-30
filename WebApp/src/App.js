@@ -5,6 +5,7 @@ import './App.css';
 import Home from './components/Home';
 import Profile from './components/Profile';
 import Header from './components/Header';
+import UserDetails from './components/UserDetails';
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
               <Switch>
                   <Route path='/home' component={Home} />
                   <Route path='/profile' component={Profile} />
+                  <Route path='/userdetails/:meterid' component={UserDetails} />
                   <Redirect to="/home" />
               </Switch>
             </CSSTransition>

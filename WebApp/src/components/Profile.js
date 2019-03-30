@@ -8,19 +8,24 @@ import Button from '@material-ui/core/Button';
 const styles = theme => ({
   root: {
     width: '100%',
+    justifyContent:'center'
   },
   avatar: {
     margin: 10,
     backgroundColor: '#0000ff',
   },
   card: {
+    width: '30%',
     alignSelf: 'center',
     display: 'flex',
     justifyContent: 'center',
     backgroundColor: theme.palette.background.paper,
-    margin: '2rem'
+    margin: '20px auto',
+    padding: '10px 0'
   },
   cardContent: {
+    display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center'
   },
   button: {
