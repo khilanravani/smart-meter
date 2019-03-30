@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import './App.css';
+import Home from './components/Home';
+import Profile from './components/Profile';
+import Header from './components/Header';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <BrowserRouter>
+        <div>
+          <Header />
+          <TransitionGroup>
+            <CSSTransition classNames="page" timeout={300}>
+              <Switch>
+                  <Route path='/home' component={Home} />
+                  <Route path='/profile' component={Profile} />
+                  <Redirect to="/home" />
+              </Switch>
+            </CSSTransition>
+          </TransitionGroup>
+        </div>
+      </BrowserRouter>
     );
   }
 }
