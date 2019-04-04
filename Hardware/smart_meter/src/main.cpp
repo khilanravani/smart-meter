@@ -3,7 +3,7 @@
 #include <LiquidCrystal.h>
 #include <SoftwareSerial.h>
 
-SoftwareSerial mySerial(10, 9);
+SoftwareSerial mySerial(9, 10);
 
 LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
 //int backLight = 13;    // pin 9 will control the backlight
@@ -80,20 +80,21 @@ void SendMessage()
 void RecieveMessage()
 {
 	mySerial.println("AT+CNMI=2,2,0,0,0"); // AT Command to receive a live SMS
-	delay(1000);
+	delay(3000);
 }
 
 void check_messages()
 {
-	char c;
-	if (mySerial.available() > 0)
+	Serial.println("IN");
+	String c;
+	while (mySerial.available() > 0)
 	{
-		c = mySerial.read();
-		Serial.print(c + " ");
-		Serial.println("\n*************");
-		if (c == 'T')
+		c = mySerial.readString();
+		Serial.print(c);
+
+		if (c == "toggle")
 		{
-			Serial.println("Toggle time");
+			Serial.println("\nToggle time");
 			if (p13)
 			{
 				digitalWrite(13, LOW);
@@ -106,13 +107,20 @@ void check_messages()
 			}
 		}
 	}
+	Serial.println("Out");
+}
+void cleanSerial()
+{
+	while (mySerial.available() > 0)
+		mySerial.read();
+	Serial.println("Serial Cleaned");
 }
 
 void setup()
 {
 
-	mySerial.begin(9600); // Setting the baud rate of GSM Module
-	Serial.begin(9600);   // Setting the baud rate of Serial Monitor (Arduino)
+	mySerial.begin(15200); // Setting the baud rate of GSM Module
+	Serial.begin(9600);	// Setting the baud rate of Serial Monitor (Arduino)
 	Serial.println("Starting test ...");
 	//lcd.begin(16, 2);
 	//lcd.clear();
@@ -123,32 +131,32 @@ void setup()
 
 void loop()
 {
-	lcd.clear();
-
-	long milisec = millis();	// calculate time in milisec
-	long time = milisec / 1000; // convert time to sec
-
-	for (int i = 0; i < 150; i++)
-	{
-		sample1 += analogRead(A0); //read the voltage from the sensor
-		sample2 += analogRead(A1); //read the current from sensor
-		delay(2);
-	}
-	sample1 = sample1 / 150;
-	sample2 = sample2 / 150;
-
-	voltage = sample1 * (250.0 / 1024.0);
-	val = (4.89 * sample2) / 1024.0;
-	actualval = val - 2.5; // offset voltage is 2.5v
-
-	amps = actualval * 10;			 // 100mv/A from data sheet
-	totamps = totamps + amps;		 // total amps
-	avgamps = totamps / time;		 // average amps
-	amphr = (avgamps * time) / 3600; // amphour
-	watt = voltage * amps;			 // power=voltage*current
+	//lcd.clear();
+	//
+	//long milisec = millis();	// calculate time in milisec
+	//long time = milisec / 1000; // convert time to sec
+	//
+	//for (int i = 0; i < 150; i++)
+	//{
+	//	sample1 += analogRead(A0); //read the voltage from the sensor
+	//	sample2 += analogRead(A1); //read the current from sensor
+	//	delay(2);
+	//}
+	//sample1 = sample1 / 150;
+	//sample2 = sample2 / 150;
+	//
+	//voltage = sample1 * (250.0 / 1024.0);
+	//val = (4.89 * sample2) / 1024.0;
+	//actualval = val - 2.5; // offset voltage is 2.5v
+	//
+	//amps = actualval * 10;			 // 100mv/A from data sheet
+	//totamps = totamps + amps;		 // total amps
+	//avgamps = totamps / time;		 // average amps
+	//amphr = (avgamps * time) / 3600; // amphour
+	//watt = voltage * amps;			 // power=voltage*current
 	//energy=(watt*time)/3600;   //energy in watt hour
-	energy = (watt * time) / (1000 * 3600); // energy in kWh
-											//int x1=voltage,ampps;
+	//energy = (watt * time) / (1000 * 3600); // energy in kWh
+	//int x1=voltage,ampps;
 
 	//scrollInFromRight(0, "voltage");
 	//scrollInFromRight(1, "watt      energy");
@@ -168,7 +176,7 @@ void loop()
 	//Serial.println("Sending");
 	//SendMessage();
 	//Serial.println("Sent");
-	//delay(500);
+	//ggdelay(500);
 	check_messages();
 	RecieveMessage();
 	check_messages();

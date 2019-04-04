@@ -11,7 +11,7 @@ from django.shortcuts import get_object_or_404, get_list_or_404
 from django.contrib.auth import authenticate
 from .models import Profile, MeterManager, MeterUser, Records, Branch
 from rest_framework.authtoken.models import Token
-from .serializers import UserSerializer, ProfileSerializer, MeterManagerSerializer, MeterUserSerializer, RecordsSerializer
+from .serializers import UserSerializer, ProfileSerializer, MeterManagerSerializer, MeterUserSerializer, RecordsSerializer, BranchSerializer
 from django.core import serializers
 
 
@@ -87,7 +87,7 @@ class ProfileList(generics.ListAPIView):
 
 
 class MeterUserView(APIView):
-    def get(self, meter_id):
+    def get(self, request, meter_id):
         meter_user = get_object_or_404(MeterUser, meter_id=meter_id)
         serializer = MeterUserSerializer(meter_user)
         return Response(serializer.data, status=200)
@@ -102,7 +102,34 @@ class MeterUserView(APIView):
 
 
 class MeterManagerView(APIView):
-    def get(self, group_num):
+    def get(self, request, group_num):
         meter_man = get_object_or_404(MeterUser, group_num=group_num)
         serializer = MeterManagerSerializer(meter_man)
         return Response(serializer.data, status=200)
+
+
+class BranchView(APIView):
+    def get(self, request, manager_id):
+        users = get_list_or_404(Branch, manager=manager_id)
+        serializer = BranchSerializer(users, many=True)
+        return Response(serializer.data, status=200)
+
+    def put(self, request, manager_id):
+        users = get_list_or_404(Branch, manager=manager_id)
+        serializer = BranchSerializer(users, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            Response(status=200)
+        return Response(status=400)
+
+    def post(self, request, manager_id):
+        data = request.data
+        serializer = BranchSerializer(data)
+        if serializer.is_valid():
+            serializer.save()
+            Response(status=200)
+        return Response(status=400)
+
+# class RecordsUserView():
+        # class RecordsSummaryView()
+        # class RecordsListView():
