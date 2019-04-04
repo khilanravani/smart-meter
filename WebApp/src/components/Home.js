@@ -46,10 +46,10 @@ function Home(props) {
               <CardContent className={classes.cardContent}>
                 <div>
                   <div>
-                    <p>Name: {meter.name}</p>
+                    <p><span className="bold">Name:</span> {meter.name}</p>
                   </div>
                   <div>
-                    <p>Meter ID: {meter.meterid}</p>
+                    <p><span className="bold">Meter ID:</span> {meter.meterid}</p>
                   </div>
                 </div>
                 <Button variant="contained" color="secondary" className={classes.button}>
