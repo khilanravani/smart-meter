@@ -12,7 +12,7 @@ from .models import Profile, Record, Bill
 from rest_framework.authtoken.models import Token
 from .serializers import UserSerializer, ProfileSerializer, RecordsSerializer, BillSerializer
 from rest_framework.authtoken.models import Token
-from django.core import serializers
+from django.core import serializers, exceptions
 from django.utils.timezone import utc
 import datetime
 # Create your views here.
@@ -21,12 +21,12 @@ TIME_DIFF = 5
 
 def save_in_bill(request):
     new_request = request.copy()
-    new_request['cost'] = request['energy'] * 14
+    new_request.data['cost'] = request['energy'] * 14
     serializer = BillSerializer(new_request)
     if serializer.is_valid():
         serializer.save()
     else:
-        raise serializers.ValidationError({'Cannot Save Bill'})
+        raise exceptions.ValidationError(message="Cannot form bill")
 
 
 class UserCreate(generics.CreateAPIView):
@@ -108,15 +108,18 @@ class RecordListView(APIView):
         user = get_object_or_404(User, username=username)
         profile = get_object_or_404(Profile, user=user)
         request.data['profile'] = profile.id
+        request.data['time'] = datetime.datetime.now()
         try:
-            if(request['bill_time'] == 1):
+            print(request.data)
+            if(request.data['bill_time'] == 1):
                 save_in_bill(request)
-            request.pop('bill_time')
-            serialize = RecordsSerializer(request.data)
+            request.data.pop('bill_time')
+            print(request.data)
+            serialize = RecordsSerializer(data=request.data)
             if serialize.is_valid():
                 serialize.save()
                 return Response(serialize.data, status=200)
-        except serializers.ValidationError:
+        except exceptions.ValidationError():
             return Response(400)
         return Response(serialize.errors, status=400)
 
