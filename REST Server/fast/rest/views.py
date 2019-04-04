@@ -15,18 +15,19 @@ from rest_framework.authtoken.models import Token
 from django.core import serializers, exceptions
 from django.utils.timezone import utc
 import datetime
+import copy
 # Create your views here.
-TIME_DIFF = 5
 
 
 def save_in_bill(request):
-    new_request = request.copy()
-    new_request.data['cost'] = request['energy'] * 14
-    serializer = BillSerializer(new_request)
+    request.data['cost'] = request.data['energy'] * 14
+    print(request.data)
+    serializer = BillSerializer(data=request.data)
     if serializer.is_valid():
+        print("it is valid")
         serializer.save()
     else:
-        raise exceptions.ValidationError(message="Cannot form bill")
+        raise exceptions.ValidationError(message=serializer.errors)
 
 
 class UserCreate(generics.CreateAPIView):
@@ -108,7 +109,8 @@ class RecordListView(APIView):
         user = get_object_or_404(User, username=username)
         profile = get_object_or_404(Profile, user=user)
         request.data['profile'] = profile.id
-        request.data['time'] = datetime.datetime.now()
+        request.data['time'] = datetime.datetime.now().strftime(
+            '%Y-%m-%d %H:%M:%S')
         try:
             print(request.data)
             if(request.data['bill_time'] == 1):
@@ -119,15 +121,18 @@ class RecordListView(APIView):
             if serialize.is_valid():
                 serialize.save()
                 return Response(serialize.data, status=200)
-        except exceptions.ValidationError():
-            return Response(400)
+        except exceptions.ValidationError as err:
+            return Response(err, status=400)
         return Response(serialize.errors, status=400)
 
 
 class BillListView(APIView):
-    permission_classes = (AllowAny,)
+    permission_classes = ()
 
-    def get(self, request):
-        bills = get_list_or_404(Bill)
+    def get(self, request, username):
+        user = get_object_or_404(User, username=username)
+        profile = get_object_or_404(Profile, user=user)
+        bills = get_list_or_404(Bill, profile=profile)
+        print(bills)
         serialize = BillSerializer(bills, many=True)
         return Response(serialize.data, status=200)

@@ -18,7 +18,7 @@ class Profile(models.Model):
 
 class Record(models.Model):
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
-    time = models.TimeField(auto_now=False, auto_now_add=True)
+    time = models.DateTimeField(auto_now=False, auto_now_add=True)
     volt = models.FloatField()
     current = models.FloatField()
     watt = models.FloatField()
@@ -33,7 +33,8 @@ class Record(models.Model):
 
 class Bill(models.Model):
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
-    time = models.TimeField(u"Billing Time")
+    time = models.DateTimeField(
+        u"Billing Time", auto_now=False, auto_now_add=False)
     cost = models.FloatField()
 
 

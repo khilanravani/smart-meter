@@ -10,6 +10,6 @@ urlpatterns = [
     path("user/signup/", UserCreate.as_view(), name="user_create"),
     path("user/signup/profile/", ProfileCreate.as_view(), name="user_create"),
     path("user/login/", LoginView.as_view(), name="login"),
-    path("user/record/<str:username>/", RecordListView.as_view()),
-    path("user/bill/", BillListView.as_view())
+    path("user/record/<str:username>/", RecordListView.as_view(), name="record"),
+    path("user/bill/<str:username>/", BillListView.as_view(), name="bill")
 ]
