@@ -29,6 +29,12 @@ def save_in_bill(request):
         raise serializers.ValidationError({'Cannot Save Bill'})
 
 
+class UserCreate(generics.CreateAPIView):
+    authentication_classes = ()
+    permission_classes = ()
+    serializer_class = UserSerializer
+
+
 class ProfileCreate(generics.CreateAPIView):
     authentication_classes = ()
     permission_classes = ()
@@ -118,9 +124,7 @@ class RecordListView(APIView):
 class BillListView(APIView):
     permission_classes = (AllowAny,)
 
-    def get(self, request, username):
-        user = get_object_or_404(User, username=username)
-        profile = get_object_or_404(Profile, user=user)
-        bills = get_list_or_404(Bill, profile=profile)
+    def get(self, request):
+        bills = get_list_or_404(Bill)
         serialize = BillSerializer(bills, many=True)
         return Response(serialize.data, status=200)

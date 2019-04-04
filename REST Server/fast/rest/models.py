@@ -25,7 +25,7 @@ class Record(models.Model):
     energy = models.FloatField()
 
     class Meta:
-        unique_together = ('profile', 'timestamp')
+        unique_together = ('profile', 'time')
 
     def __str__(self):
         return self.profile.__str__() + " " + str(self.time)
@@ -33,5 +33,9 @@ class Record(models.Model):
 
 class Bill(models.Model):
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
-    time = models.TimeField(_(u"Conversation Time"))
+    time = models.TimeField(u"Billing Time")
     cost = models.FloatField()
+
+
+def __str__(self):
+    return self.profile.__str__() + " " + str(self.time) + " " + self.cost
