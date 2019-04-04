@@ -12,10 +12,10 @@ import android.widget.TextView;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    Button editDetails, saveButton;
-    EditText userName, emailId, phoneNumber, address, pin;
+    TextView userName, emailId, phoneNumber, address;
     TextView meterId;
 
+    String name;
 
     int meter_id = 0;
     @Override
@@ -26,17 +26,15 @@ public class ProfileActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.app_bar);
         toolbar.setTitle("Profile");
 
+        Intent intent = getIntent();
+        name = intent.getStringExtra("username");
 
 
         meterId = findViewById(R.id.user_id);
-
-        editDetails = findViewById(R.id.edit_details);
-        saveButton = findViewById(R.id.save_button);
         userName = findViewById(R.id.user_name);
         emailId = findViewById(R.id.email_id);
         phoneNumber = findViewById(R.id.phone_number);
         address = findViewById(R.id.address);
-        pin = findViewById(R.id.pin);
 
         String eid = "harshendrashah@abc.com";
         int position = 0;
@@ -52,35 +50,9 @@ public class ProfileActivity extends AppCompatActivity {
         emailId.setText(UserData.emailId[position]);
         userName.setText(UserData.userName[position]);
         phoneNumber.setText(UserData.phoneNumber[position]);
-        pin.setText(String.valueOf(UserData.pin[position]));
 
         address.setText(UserData.address[position]);
-        editDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                userName.setEnabled(true);
-                userName.setFocusable(true);
-                emailId.setEnabled(true);
-                phoneNumber.setEnabled(true);
-                address.setEnabled(true);
-                pin.setEnabled(true);
-                editDetails.setVisibility(View.GONE);
-                saveButton.setVisibility(View.VISIBLE);
-            }
-        });
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                userName.setEnabled(false);
-                emailId.setEnabled(false);
-                phoneNumber.setEnabled(false);
-                address.setEnabled(false);
-                pin.setEnabled(false);
-                editDetails.setVisibility(View.VISIBLE);
-                saveButton.setVisibility(View.GONE);
-            }
-        });
 
     }
 
