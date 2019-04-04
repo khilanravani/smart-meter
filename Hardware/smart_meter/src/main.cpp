@@ -19,6 +19,7 @@ float avgamps = 0.0;
 float amphr = 0.0;
 float watt = 0.0;
 float energy = 0.0;
+int send_flag = 1;
 
 int i = 0;
 int j = 0;
@@ -56,7 +57,7 @@ void check_messages()
 		c = mySerial.readString();
 		Serial.print(c);
 
-		if (c.indexOf("toggle") > 0 || c.indexOf("1Out") > 0)
+		if (c.indexOf("+919724927731") > 0 || c.indexOf("toggle") > 0)
 		{
 			Serial.println("\nToggle time");
 			if (p13)
@@ -150,11 +151,19 @@ void loop()
   	//delay(1000);
   	delay(60000);
   	*/
-
-	Serial.println("Sending");
-	SendMessage();
-	Serial.println("Sent");
-	delay(500);
+  	Serial.println(send_flag);
+  	if(send_flag % 6 == 0)
+	{
+		send_flag = 1;
+		Serial.println("Sending");
+		SendMessage();
+		Serial.println("Sent");
+		delay(500);
+	}
+	else
+	{
+		send_flag += 1;
+	}
 	check_messages();
 	RecieveMessage();
 	check_messages();
