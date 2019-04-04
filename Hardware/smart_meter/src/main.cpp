@@ -19,6 +19,7 @@ float avgamps = 0.0;
 float amphr = 0.0;
 float watt = 0.0;
 float energy = 0.0;
+int send_flag = 1;
 
 int i = 0;
 int j = 0;
@@ -26,42 +27,6 @@ int k = 0;
 int delayTime2 = 350; // Delay between shifts
 bool p13 = true;
 
-void scrollInFromRight(int line, char str1[])
-{
-	i = strlen(str1);
-	for (j = 16; j >= 0; j--)
-	{
-		lcd.setCursor(0, line);
-		for (k = 0; k <= 15; k++)
-		{
-			lcd.print(" "); // Clear line
-		}
-
-		lcd.setCursor(j, line);
-		lcd.print(str1);
-		delay(delayTime2);
-	}
-}
-
-void scrollInFromLeft(int line, char str1[])
-{
-
-	i = 40 - strlen(str1);
-	line = line - 1;
-
-	for (j = i; j <= i + 16; j++)
-	{
-		for (k = 0; k <= 15; k++)
-		{
-
-			lcd.print(" "); // Clear line
-		}
-
-		lcd.setCursor(j, line);
-		lcd.print(str1);
-		delay(delayTime2);
-	}
-}
 void SendMessage()
 {
 	mySerial.println("AT+CMGF=1");					 //Sets the GSM Module in Text Mode
@@ -92,7 +57,7 @@ void check_messages()
 		c = mySerial.readString();
 		Serial.print(c);
 
-		if (c.indexOf("toggle") > 0 || c.indexOf("1Out") > 0)
+		if (c.indexOf("+919724927731") > 0 || c.indexOf("toggle") > 0)
 		{
 			Serial.println("\nToggle time");
 			if (p13)
@@ -122,61 +87,83 @@ void setup()
 	mySerial.begin(15200); // Setting the baud rate of GSM Module
 	Serial.begin(9600);	// Setting the baud rate of Serial Monitor (Arduino)
 	Serial.println("Starting test ...");
-	//lcd.begin(16, 2);
-	//lcd.clear();
-	//lcd.print("Test Only");
+	lcd.begin(16, 2);
+	lcd.clear();
 	pinMode(13, OUTPUT);
 	digitalWrite(13, HIGH);
 }
 
 void loop()
 {
-	//lcd.clear();
-	//
-	//long milisec = millis();	// calculate time in milisec
-	//long time = milisec / 1000; // convert time to sec
-	//
-	//for (int i = 0; i < 150; i++)
-	//{
-	//	sample1 += analogRead(A0); //read the voltage from the sensor
-	//	sample2 += analogRead(A1); //read the current from sensor
-	//	delay(2);
-	//}
-	//sample1 = sample1 / 150;
-	//sample2 = sample2 / 150;
-	//
-	//voltage = sample1 * (250.0 / 1024.0);
-	//val = (4.89 * sample2) / 1024.0;
-	//actualval = val - 2.5; // offset voltage is 2.5v
-	//
-	//amps = actualval * 10;			 // 100mv/A from data sheet
-	//totamps = totamps + amps;		 // total amps
-	//avgamps = totamps / time;		 // average amps
-	//amphr = (avgamps * time) / 3600; // amphour
-	//watt = voltage * amps;			 // power=voltage*current
-	//energy=(watt*time)/3600;   //energy in watt hour
-	//energy = (watt * time) / (1000 * 3600); // energy in kWh
-	//int x1=voltage,ampps;
+	lcd.setCursor(16, 1); // set the cursor outside the display count
+	lcd.print(" ");		  // print empty character
 
-	//scrollInFromRight(0, "voltage");
-	//scrollInFromRight(1, "watt      energy");
+	delay(600);
 
-	//lcd.clear();
+	long milisec = millis();	// calculate time in milisec
+	long time = milisec / 1000; // convert time to sec
 
-	//scrollInFromLeft(0, "CURRENT STATUS");
-	//scrollInFromLeft(1, "POWER ON/OFF");
+	for (int i = 0; i < 150; i++)
+	{
+		sample1 += analogRead(A0); //read the voltage from the sensor
+		sample2 += analogRead(A1); //read the current from sensor
+		delay(2);
+	}
+	sample1 = sample1 / 150;
+	sample2 = sample2 / 150;
 
-	//lcd.clear();
+	voltage = sample1 * (250.0 / 1024.0);
+	val = (4.89 * sample2) / 1024.0;
+	actualval = val - 2.5; // offset voltage is 2.5v
 
-	//scrollInFromRight(0, "watt      energy");
-	//scrollInFromLeft(1, "POWER ON/OFF");
+	amps = actualval * 10;					// 100mv/A from data sheet
+	totamps = totamps + amps;				// total amps
+	avgamps = totamps / time;				// average amps
+	amphr = (avgamps * time) / 3600;		// amphour
+	watt = voltage * amps;					// power=voltage*current
+	energy = (watt * time) / (1000 * 3600); // energy in kWh
 
-	//lcd.clear();
+	lcd.setCursor(1, 0); // set the cursor at 1st col and 1st row
+	lcd.print(watt);
+	lcd.print("W ");
+	lcd.print(voltage);
+	lcd.print("V");
 
-	//Serial.println("Sending");
-	//SendMessage();
-	//Serial.println("Sent");
-	//ggdelay(500);
+	lcd.setCursor(1, 1); // set the cursor at 1st col and 2nd row
+	lcd.print(energy);
+	lcd.print("WH   ");
+	lcd.print(amps);
+	lcd.print("A");
+
+	/*
+  	mySerial.println("AT+CMGF=1");    //Sets the GSM Module in Text Mode
+  	delay(1000);  // Delay of 1000 milli seconds or 1 second
+  	mySerial.println("AT+CMGS=\"+919428217561\"\r"); // Replace x with mobile number
+  	delay(1000);
+  	//mySerial.print(watt, voltage, energy, amps);
+  	mySerial.println(watt);
+  	mySerial.println(voltage);
+  	mySerial.println(energy);
+  	mySerial.println(amps);
+  	//mySerial.println("sim900a sms");// The SMS text you want to send
+  	delay(100);
+  	mySerial.println((char)26);// ASCII code of CTRL+Z
+  	//delay(1000);
+  	delay(60000);
+  	*/
+  	Serial.println(send_flag);
+  	if(send_flag % 6 == 0)
+	{
+		send_flag = 1;
+		Serial.println("Sending");
+		SendMessage();
+		Serial.println("Sent");
+		delay(500);
+	}
+	else
+	{
+		send_flag += 1;
+	}
 	check_messages();
 	RecieveMessage();
 	check_messages();
