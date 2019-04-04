@@ -92,7 +92,7 @@ void check_messages()
 		c = mySerial.readString();
 		Serial.print(c);
 
-		if (c == "toggle")
+		if (c.indexOf("toggle") > 0 || c.indexOf("1Out") > 0)
 		{
 			Serial.println("\nToggle time");
 			if (p13)
