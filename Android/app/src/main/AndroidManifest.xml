@@ -3,9 +3,9 @@
     package="com.example.projectmeter">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_SMS" />
-    <uses-permission android:name="android.permission.READ_SMS" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <!--<uses-permission android:name="android.permission.WRITE_SMS" />-->
+    <!--<uses-permission android:name="android.permission.READ_SMS" />-->
+    <!--<uses-permission android:name="android.permission.RECEIVE_SMS" />-->
 
     <application
         android:allowBackup="true"
@@ -17,7 +17,6 @@
         <activity android:name=".BillingActivity"></activity>
         <activity android:name=".PredictionActivity" />
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
