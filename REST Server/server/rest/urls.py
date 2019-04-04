@@ -19,5 +19,5 @@ urlpatterns = [
     path("manager/signup/profile/", ProfileCreate.as_view(),
          name="manager_profile_create"),
     path("user/profile/", MeterManagerView.as_view(), name="manager_profile"),
-    path("manager/login/", LoginView.as_view(), name="manager_login"),
+    path("manager/login/", LoginView.as_view(), name="manager_login")
 ]
