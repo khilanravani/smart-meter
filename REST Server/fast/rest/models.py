@@ -16,22 +16,22 @@ class Profile(models.Model):
         return self.user.__str__()
 
 
-class Records(models.Model):
+class Record(models.Model):
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
-    timestamp = models.TimeField(auto_now=False, auto_now_add=True)
+    time = models.TimeField(auto_now=False, auto_now_add=True)
     volt = models.FloatField()
     current = models.FloatField()
     watt = models.FloatField()
-    power = models.FloatField()
+    energy = models.FloatField()
 
     class Meta:
         unique_together = ('profile', 'timestamp')
 
     def __str__(self):
-        return self.profile.__str__() + " " + str(self.timestamp)
+        return self.profile.__str__() + " " + str(self.time)
 
 
 class Bill(models.Model):
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
-    current_consumed = models.FloatField()
+    time = models.TimeField(_(u"Conversation Time"))
     cost = models.FloatField()
