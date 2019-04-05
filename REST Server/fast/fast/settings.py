@@ -65,11 +65,6 @@ ROOT_URLCONF = 'fast.urls'
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-CORS_ORIGIN_WHITELIST = (
-    'smart-meter-guj.herokuapp.com',
-    '127.0.0.1'
-)
-
 CORS_ALLOW_METHODS = (
     'GET',
     'POST',
@@ -132,6 +127,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
