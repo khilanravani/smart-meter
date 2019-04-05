@@ -1,16 +1,15 @@
 {
-    "name": "Deploy Smart Meter",
-    "description": "Smart meter for gujarat",
-    "image": "heroku/python",
-    "repository": "http://github.com/hsankesara/smart-meter",
-    "keywords": ["python", "django" ],
-    "environments": {
-      "test": {
-        "scripts": {
-          "test-setup": "python manage.py collectstatic --noinput",
-          "test": "python manage.py test"
-        }
+  "name": "Deploy Smart Meter",
+  "description": "Smart meter for gujarat Hackathon",
+  "image": "heroku/python",
+  "repository": "http://github.com/hsankesara/smart-meter",
+  "keywords": ["python", "django"],
+  "environments": {
+    "test": {
+      "scripts": {
+        "test-setup": "python manage.py collectstatic --noinput",
+        "test": "python manage.py test"
       }
     }
   }
-  
+}

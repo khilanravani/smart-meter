@@ -1,0 +1,19 @@
+[[source]]
+name = "pypi"
+verify_ssl = true
+url = "https://pypi.org/simple"
+
+[dev-packages]
+pylint = "*"
+yapf = "*"
+
+[packages]
+django = "*"
+dj-database-url = "*"
+djangorestframework = "*"
+psycopg2 = "*"
+whitenoise = "*"
+gunicorn = "*"
+
+[requires]
+python_version = "3.5.3"
