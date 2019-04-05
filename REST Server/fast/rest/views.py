@@ -22,7 +22,6 @@ import copy
 
 def save_in_bill(request):
     request.data['cost'] = request.data['energy'] * 14
-    print(request.data)
     serializer = BillSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -110,15 +109,13 @@ class RecordListView(APIView):
         profile = get_object_or_404(Profile, user=user)
         request.data['profile'] = profile.id
         dt = datetime.now()
-        dt.replace(tzinfo=timezone.utc)
+        dt.replace(tzinfo=None)
         request.data['time'] = dt.strftime(
             '%Y-%m-%d %H:%M:%S')
         try:
-            print(request.data)
             if(request.data['bill_time'] == 1):
                 save_in_bill(request)
             request.data.pop('bill_time')
-            print(request.data)
             serialize = RecordsSerializer(data=request.data)
             if serialize.is_valid():
                 serialize.save()
@@ -135,6 +132,5 @@ class BillListView(APIView):
         user = get_object_or_404(User, username=username)
         profile = get_object_or_404(Profile, user=user)
         bills = get_list_or_404(Bill, profile=profile)
-        print(bills)
         serialize = BillSerializer(bills, many=True)
         return Response(serialize.data, status=200)
