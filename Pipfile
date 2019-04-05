@@ -15,6 +15,7 @@ psycopg2 = "*"
 whitenoise = "*"
 gunicorn = "*"
 django-cors-headers = "*"
+django-heroku = "*"
 
 [requires]
 python_version = "3.5.3"
