@@ -1,1 +1,1 @@
-web: gunicorn smart-meter/REST\ Server/fast/fast.wsgi
+web: gunicorn --pythonpath REST\ Server/fast/ fast.wsgi
