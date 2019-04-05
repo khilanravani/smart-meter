@@ -11,9 +11,11 @@ yapf = "*"
 django = "*"
 dj-database-url = "*"
 djangorestframework = "*"
+dj-database-url = "*"
 psycopg2 = "*"
 whitenoise = "*"
 gunicorn = "*"
+whitenoise = "*"
 
 [requires]
 python_version = "3.5.3"
