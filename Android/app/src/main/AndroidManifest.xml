@@ -3,9 +3,6 @@
     package="com.example.projectmeter">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--<uses-permission android:name="android.permission.WRITE_SMS" />-->
-    <!--<uses-permission android:name="android.permission.READ_SMS" />-->
-    <!--<uses-permission android:name="android.permission.RECEIVE_SMS" />-->
 
     <application
         android:allowBackup="true"
@@ -14,9 +11,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BillingActivity"></activity>
-        <activity android:name=".PredictionActivity" />
-        <activity android:name=".ProfileActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>

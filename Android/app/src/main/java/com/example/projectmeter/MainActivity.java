@@ -1,19 +1,22 @@
 package com.example.projectmeter;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.alespero.expandablecardview.ExpandableCardView;
 
-public class MainActivity extends AppCompatActivity {
-
-    private static MainActivity inst;
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     String name;
 
@@ -22,30 +25,22 @@ public class MainActivity extends AppCompatActivity {
     TextView currentReadings, voltage, ampere, power;
     Button billingButton;
 
-    public static MainActivity instance() {
-        return inst;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        inst = this;
-    }
-
-    public void updateReadings(final String smsMessage) {
-        currentReadings.setText(smsMessage);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = getIntent();
-        name = intent.getStringExtra("username");
-
-        Toolbar toolbar = findViewById(R.id.app_bar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         currentReadings = findViewById(R.id.current_reading);
         voltage = findViewById(R.id.voltage);
@@ -60,28 +55,81 @@ public class MainActivity extends AppCompatActivity {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, ProfileActivity.class);
-                i.putExtra("username", name);
-                startActivity(i);
+                ProfileFragment profileFragment = new ProfileFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.layout, profileFragment)
+                        .addToBackStack(PredictionFragment.class.getSimpleName())
+                        .commit();
             }
         });
 
         predict.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, PredictionActivity.class);
-                i.putExtra("username", name);
-                startActivity(i);
+                PredictionFragment predictionFragment = new PredictionFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.layout, predictionFragment)
+                        .addToBackStack(PredictionFragment.class.getSimpleName())
+                        .commit();
             }
         });
 
         billingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, BillingActivity.class);
-                i.putExtra("username", name);
-                startActivity(i);
+                BillingFragment billingFragment = new BillingFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.layout, billingFragment)
+                        .addToBackStack(ProfileFragment.class.getSimpleName())
+                        .commit();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_home) {
+            HomeFragment homeFragment = new HomeFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.layout, homeFragment)
+                    .addToBackStack(HomeFragment.class.getSimpleName())
+                    .commit();
+        } else if (id == R.id.nav_predict) {
+            PredictionFragment predictionFragment = new PredictionFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.layout, predictionFragment)
+                    .addToBackStack(PredictionFragment.class.getSimpleName())
+                    .commit();
+        } else if (id == R.id.nav_profile) {
+            ProfileFragment profileFragment = new ProfileFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.layout, profileFragment)
+                    .addToBackStack(ProfileFragment.class.getSimpleName())
+                    .commit();
+        } else if (id == R.id.nav_bill) {
+            BillingFragment billingFragment = new BillingFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.layout, billingFragment)
+                    .addToBackStack(ProfileFragment.class.getSimpleName())
+                    .commit();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
