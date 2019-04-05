@@ -7,6 +7,7 @@ import ListItem from '@material-ui/core/ListItem';
 import { CardContent } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 import data from '../data/data.json';
 
 const styles = theme => ({
@@ -35,10 +36,31 @@ const styles = theme => ({
   }
 });
 
-function Home(props) {
-  const { classes } = props;
-  return (
-    <List className={classes.root}>
+class Home extends React.Component {
+
+  constructor(props) {
+    super(props);
+		this.state = {
+            userdata: []
+        };
+  }
+
+  componentDidMount() {
+    axios.get('http://smart-meter-guj.herokuapp.com/rest/user/?format=json')
+        .then(res => {
+          const users = res.data;
+            this.setState({
+              userdata: users
+            })
+        })
+  }
+
+  render() {
+    const { classes } = this.props;
+    const users = this.state.userdata;
+    console.log(users);
+    return(
+      <List className={classes.root}>
       {data.data.map((meter) => 
         <Link to={`/userdetails/${meter.meterid}`} className={classes.link}>
           <ListItem>
@@ -62,7 +84,8 @@ function Home(props) {
         )
       }
     </List>
-  );
+    );
+  }
 }
 
 Home.propTypes = {
