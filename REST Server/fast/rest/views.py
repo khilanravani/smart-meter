@@ -14,9 +14,8 @@ from .serializers import UserSerializer, ProfileSerializer, RecordsSerializer, B
 from rest_framework.authtoken.models import Token
 from django.core import serializers, exceptions
 from django.utils.timezone import utc
-from datetime import datetime
-from datetime import timezone
 import copy
+from django.utils import timezone
 # Create your views here.
 
 
@@ -108,8 +107,7 @@ class RecordListView(APIView):
         user = get_object_or_404(User, username=username)
         profile = get_object_or_404(Profile, user=user)
         request.data['profile'] = profile.id
-        dt = datetime.now()
-        dt = dt.replace(tzinfo=None)
+        dt = timezone.now()
         request.data['time'] = dt.strftime('%Y-%m-%d %H:%M:%S')
         try:
             if(request.data['bill_time'] == 1):
