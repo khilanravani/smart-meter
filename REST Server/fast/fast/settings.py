@@ -25,7 +25,9 @@ SECRET_KEY = '@k!#h(+*c1o99ycz^3qg7zks%&df!@x68j89fv3pb)7kcd*1zf'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'smart-meter-guj.herokuapp.com'
+]
 
 
 # Application definition
