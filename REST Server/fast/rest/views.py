@@ -131,3 +131,18 @@ class BillListView(APIView):
         bills = get_list_or_404(Bill, profile=profile)
         serialize = BillSerializer(bills, many=True)
         return Response(serialize.data, status=200)
+
+
+class BillAPIView(APIView):
+    def get(self, request, username, billid):
+        bill = get_object_or_404(Bill, id=billid)
+        serialize = BillSerializer(bill)
+        return Response(serialize.data, status=200)
+
+    def put(self, request, username, billid):
+        bill = get_object_or_404(Bill, id=billid)
+        serialize = BillSerializer(bill, data=request.data)
+        if serialize.is_valid():
+            serialize.save()
+            Response(status=200)
+        return Response(status=404)

@@ -8,6 +8,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     contact_number = models.CharField(max_length=13)
     meter_id = models.CharField(max_length=50)
+    meter_status = models.BooleanField(default=True)
 
     class Meta:
         unique_together = ('meter_id', 'user', 'contact_number')
@@ -35,6 +36,7 @@ class Bill(models.Model):
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
     time = models.CharField(max_length=50)
     cost = models.FloatField()
+    is_paid = models.BooleanField(default=False)
 
 
 def __str__(self):
