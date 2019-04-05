@@ -105,6 +105,8 @@ venv.bak/
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# Website
+
 # dependencies
 /WebApp/node_modules
 /WebApp/.pnp
@@ -126,3 +128,20 @@ venv.bak/
 /WebApp/npm-debug.log*
 /WebApp/yarn-debug.log*
 /WebApp/yarn-error.log*
+
+
+# Android
+
+*.iml
+/Android/.gradle
+/Android/local.properties
+/Android/.idea/caches
+/Android/.idea/libraries
+/Android/.idea/modules.xml
+/Android/.idea/workspace.xml
+/Android/.idea/navEditor.xml
+/Android/.idea/assetWizardSettings.xml
+/Android/.DS_Store
+/Android/build
+/Android/captures
+/Android.externalNativeBuild
