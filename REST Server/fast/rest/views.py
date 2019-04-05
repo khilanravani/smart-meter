@@ -109,9 +109,8 @@ class RecordListView(APIView):
         profile = get_object_or_404(Profile, user=user)
         request.data['profile'] = profile.id
         dt = datetime.now()
-        dt.replace(tzinfo=None)
-        request.data['time'] = dt.strftime(
-            '%Y-%m-%d %H:%M:%S')
+        dt = dt.replace(tzinfo=None)
+        request.data['time'] = dt
         try:
             if(request.data['bill_time'] == 1):
                 save_in_bill(request)
