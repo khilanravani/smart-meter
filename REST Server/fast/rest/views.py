@@ -14,7 +14,8 @@ from .serializers import UserSerializer, ProfileSerializer, RecordsSerializer, B
 from rest_framework.authtoken.models import Token
 from django.core import serializers, exceptions
 from django.utils.timezone import utc
-import datetime
+from datetime import datetime
+from datetime import timezone
 import copy
 # Create your views here.
 
@@ -108,7 +109,9 @@ class RecordListView(APIView):
         user = get_object_or_404(User, username=username)
         profile = get_object_or_404(Profile, user=user)
         request.data['profile'] = profile.id
-        request.data['time'] = datetime.datetime.now().strftime(
+        dt = datetime.now()
+        dt.replace(tzinfo=timezone.utc)
+        request.data['time'] = dt.strftime(
             '%Y-%m-%d %H:%M:%S')
         try:
             print(request.data)
