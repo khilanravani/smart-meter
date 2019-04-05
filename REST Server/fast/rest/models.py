@@ -34,7 +34,7 @@ class Record(models.Model):
 class Bill(models.Model):
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
     time = models.DateTimeField(
-        u"Billing Time", auto_now=False, auto_now_add=False)
+        u"Billing Time", auto_now=False, auto_now_add=True)
     cost = models.FloatField()
 
 
