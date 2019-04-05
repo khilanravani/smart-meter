@@ -49,14 +49,15 @@ class ProfileAPIView(APIView):
         data = ProfileSerializer(user_profile).data
         return Response(data)
 
-    def put(self, request, username):
+    def patch(self, request, username):
         user = get_object_or_404(User, username=username)
         user_profile = get_object_or_404(Profile, user=user)
-        serialize = ProfileSerializer(user_profile, data=request.data)
+        serialize = ProfileSerializer(
+            user_profile, data=request.data, partial=True)
         if serialize.is_valid():
             serialize.save()
-            Response(status=200)
-        return Response(status=404)
+            return Response(serialize.data, status=200)
+        return Response(serialize.errors, status=404)
 
     def delete(self, request, username):
         user = get_object_or_404(User, username=username)
