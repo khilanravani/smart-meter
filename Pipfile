@@ -14,6 +14,7 @@ djangorestframework = "*"
 psycopg2 = "*"
 whitenoise = "*"
 gunicorn = "*"
+django-cors-headers = "*"
 
 [requires]
 python_version = "3.5.3"
