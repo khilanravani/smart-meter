@@ -1,6 +1,7 @@
 {
     "graph_data": [
         {
+            "username": "test1",
             "meterid": 123456,
             "points" : [
                 {

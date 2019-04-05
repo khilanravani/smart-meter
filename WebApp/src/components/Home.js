@@ -8,7 +8,6 @@ import { CardContent } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
-import data from '../data/data.json';
 
 const styles = theme => ({
   root: {
@@ -58,20 +57,20 @@ class Home extends React.Component {
   render() {
     const { classes } = this.props;
     const users = this.state.userdata;
-    console.log(users);
+
     return(
       <List className={classes.root}>
-      {data.data.map((meter) => 
-        <Link to={`/userdetails/${meter.meterid}`} className={classes.link}>
+      {users.map((user) => 
+        <Link to={`/userdetails/${user.user.username}`} className={classes.link}>
           <ListItem>
             <Card className={classes.card}>
               <CardContent className={classes.cardContent}>
                 <div>
                   <div>
-                    <p><span className="bold">Name:</span> {meter.name}</p>
+                    <p><span className="bold">Name:</span> {user.user.username}</p>
                   </div>
                   <div>
-                    <p><span className="bold">Meter ID:</span> {meter.meterid}</p>
+                    <p><span className="bold">Meter ID:</span> {user.meter_id}</p>
                   </div>
                 </div>
                 <Button variant="contained" color="secondary" className={classes.button}>
