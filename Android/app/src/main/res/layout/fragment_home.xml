@@ -190,7 +190,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
                             android:background="@drawable/gradient_background"
-                            android:src="@android:drawable/ic_menu_add" />
+                            android:src="@drawable/predict"
+                            android:padding="16dp"/>
 
                         <TextView
                             android:layout_width="match_parent"
@@ -222,8 +223,9 @@
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
+                            android:padding="16dp"
                             android:background="@drawable/gradient_background"
-                            android:src="@android:drawable/ic_menu_my_calendar" />
+                            android:src="@drawable/user" />
 
                         <TextView
                             android:layout_width="wrap_content"
