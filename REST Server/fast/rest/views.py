@@ -24,7 +24,6 @@ def save_in_bill(request):
     print(request.data)
     serializer = BillSerializer(data=request.data)
     if serializer.is_valid():
-        print("it is valid")
         serializer.save()
     else:
         raise exceptions.ValidationError(message=serializer.errors)
