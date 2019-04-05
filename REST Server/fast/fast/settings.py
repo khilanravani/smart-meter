@@ -27,7 +27,8 @@ SECRET_KEY = '@k!#h(+*c1o99ycz^3qg7zks%&df!@x68j89fv3pb)7kcd*1zf'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'smart-meter-guj.herokuapp.com'
+    'smart-meter-guj.herokuapp.com',
+    '127.0.0.1'
 ]
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
