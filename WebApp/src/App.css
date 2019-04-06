@@ -48,3 +48,28 @@
 .user-info {
   margin: 40px 0;
 }
+
+
+.user-details {
+  display: flex;
+}
+
+.user-details > * {
+  flex: 0 0 50%;
+}
+
+.bill {
+  padding: 16px;
+  margin: 8px
+}
+
+.bill-details {
+  border-bottom: 1px solid #cccccc;
+
+}
+
+.btns-div {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 16px
+}
