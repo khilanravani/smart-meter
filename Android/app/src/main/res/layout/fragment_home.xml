@@ -248,7 +248,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:background="@color/colorPrimaryDark"
-                android:text="Generate Bill"
+                android:text="Bills and History"
                 android:textColor="@color/white"
                 app:layout_constraintTop_toBottomOf="@id/ll" />
 
