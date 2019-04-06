@@ -15,15 +15,12 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.alespero.expandablecardview.ExpandableCardView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,7 +32,6 @@ public class MainActivity extends AppCompatActivity
     String BASE_URL = "http://smart-meter-guj.herokuapp.com/rest/user/record/";
     String name;
 
-    ExpandableCardView previousReadings;
     CardView predict, profile;
     TextView currentReadings, voltage, ampere, power;
     Button billingButton;
@@ -71,8 +67,6 @@ public class MainActivity extends AppCompatActivity
         predict = findViewById(R.id.predict);
         profile = findViewById(R.id.profile);
         billingButton = findViewById(R.id.billing_button);
-
-        previousReadings = findViewById(R.id.previous_readings);
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override

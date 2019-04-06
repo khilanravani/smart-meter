@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.alespero.expandablecardview.ExpandableCardView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -29,7 +28,6 @@ public class HomeFragment extends Fragment {
     String BASE_URL = "http://smart-meter-guj.herokuapp.com/rest/user/record/";
     String name;
 
-    ExpandableCardView previousReadings;
     CardView predict, profile;
     TextView currentReadings, voltage, ampere, power;
     Button billingButton;
@@ -52,8 +50,6 @@ public class HomeFragment extends Fragment {
         predict = view.findViewById(R.id.predict);
         profile = view.findViewById(R.id.profile);
         billingButton = view.findViewById(R.id.billing_button);
-
-        previousReadings = view.findViewById(R.id.previous_readings);
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override

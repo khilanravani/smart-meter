@@ -154,25 +154,12 @@
 
             </LinearLayout>
 
-            <com.alespero.expandablecardview.ExpandableCardView
-                android:id="@+id/previous_readings"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:animationDuration="300"
-                app:expandOnClick="true"
-                app:inner_view="@layout/previous_reading_list"
-                app:layout_constraintRight_toRightOf="@id/view"
-                app:layout_constraintTop_toBottomOf="@id/view"
-                app:startExpanded="false"
-                app:title="Previous Readings" />
-
             <LinearLayout
                 android:id="@+id/ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/previous_readings">
+                app:layout_constraintTop_toBottomOf="@id/view">
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/predict"

@@ -96,6 +96,10 @@ public class PredictionFragment extends Fragment {
                         }
                     });
 
+//                    graph.getGridLabelRenderer().setHorizontalAxisTitle("Time");
+//                    graph.getGridLabelRenderer().setVerticalAxisTitle("Energy");
+                    graph.getGridLabelRenderer().setNumHorizontalLabels(5);
+
                     graph.addSeries(series);
                 } catch (JSONException e) {
                     e.printStackTrace();
