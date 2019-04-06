@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String name = userName.getText().toString();
                 if (TextUtils.isEmpty(name)) {
-                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Enter Username!", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
                     Intent i = new Intent(LoginActivity.this, MainActivity.class);

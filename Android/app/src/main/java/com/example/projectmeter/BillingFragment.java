@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 public class BillingFragment extends Fragment {
 
-
+    String name;
     public BillingFragment() {
         // Required empty public constructor
     }
@@ -22,6 +22,7 @@ public class BillingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        name = getArguments().getString("username");
         return inflater.inflate(R.layout.fragment_billing, container, false);
     }
 

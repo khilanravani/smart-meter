@@ -9,7 +9,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/fragment_home">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -51,7 +52,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:text="1234.567"
+                        tools:text="1234.567"
                         android:textColor="@color/white"
                         android:textSize="32sp"
                         android:textStyle="bold"
@@ -87,7 +88,7 @@
                             android:id="@+id/power"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="10.55"
+                            tools:text="10.55"
                             android:textColor="@color/white"
                             android:textSize="18sp" />
 
@@ -112,7 +113,7 @@
                             android:id="@+id/voltage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="10.55"
+                            tools:text="10.55"
                             android:textColor="@color/white"
                             android:textSize="18sp" />
 
@@ -137,7 +138,7 @@
                             android:id="@+id/ampere"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="10.55"
+                            tools:text="10.55"
                             android:textColor="@color/white"
                             android:textSize="18sp" />
 

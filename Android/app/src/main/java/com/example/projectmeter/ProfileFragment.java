@@ -31,6 +31,9 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        name = getArguments().getString("username");
+
         meterId = view.findViewById(R.id.user_id);
         userName = view.findViewById(R.id.user_name);
         emailId = view.findViewById(R.id.email_id);

@@ -16,6 +16,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 public class PredictionFragment extends Fragment {
 
     GraphView graph;
+    String name;
 
     public PredictionFragment() {
         // Required empty public constructor
@@ -27,6 +28,8 @@ public class PredictionFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_prediction, container, false);
+
+        name = getArguments().getString("username");
 
         graph = view.findViewById(R.id.graph);
 
