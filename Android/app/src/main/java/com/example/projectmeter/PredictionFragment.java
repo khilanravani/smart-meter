@@ -18,7 +18,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
@@ -28,7 +27,9 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class PredictionFragment extends Fragment {
 
@@ -50,7 +51,7 @@ public class PredictionFragment extends Fragment {
         url = BASE_URL+ name +"/?format=json";
 
         graph = view.findViewById(R.id.graph);
-
+        Log.i("URL:", url);
         plotGraph(url);
 
         return view;
@@ -71,27 +72,29 @@ public class PredictionFragment extends Fragment {
             public void onResponse(JSONArray response) {
                 try {
                     DataPoint[] values = new DataPoint[response.length()];
-                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     for(int i = 0; i < response.length(); i++) {
                         JSONObject data = response.getJSONObject(i);
-                        Date date = format.parse(data.getString("time"));
-                        DataPoint v = new DataPoint(date, data.getDouble("current"));
+                        long epoch = new java.text.SimpleDateFormat("yyyy-mm-dd HH:mm:ss")
+                                .parse(data.getString("time")).getTime() / 1000;
+                        DataPoint v = new DataPoint(epoch, data.getDouble("current"));
                         values[i] = v;
-                        Log.i("***", String.valueOf(values[i].getX()));
                     }
+
                     LineGraphSeries<DataPoint> series = new LineGraphSeries<>(values);
 
-                    graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
-                    graph.getGridLabelRenderer().setNumHorizontalLabels(3); // only 4 because of the space
+                    graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
+                        @Override
+                        public String formatLabel(double value, boolean isValueX) {
+                            if (isValueX) {
+                                // show normal x values
+                                return getDate(new Double(value).longValue());
+                            } else {
 
-                    // set manual x bounds to have nice steps
-                    graph.getViewport().setMinX(values[0].getX());
-                    graph.getViewport().setMaxX(values[values.length - 1].getX());
-                    graph.getViewport().setXAxisBoundsManual(true);
-
-                    // as we use dates as labels, the human rounding to nice readable numbers
-                    // is not necessary
-                    graph.getGridLabelRenderer().setHumanRounding(false);
+                                // show currency for y values
+                                return super.formatLabel(value, isValueX);
+                            }
+                        }
+                    });
 
                     graph.addSeries(series);
                 } catch (JSONException e) {
@@ -109,5 +112,11 @@ public class PredictionFragment extends Fragment {
         });
 
         queue.add(jsonArrayRequest);
+    }
+    private String getDate(long time) {
+        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+        cal.setTimeInMillis(time * 1000);
+        String date = DateFormat.format("hh:mm", cal).toString();
+        return date;
     }
 }
