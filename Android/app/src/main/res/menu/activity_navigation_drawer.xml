@@ -11,7 +11,7 @@
         <item
             android:id="@+id/nav_predict"
             android:icon="@drawable/ic_menu_predict"
-            android:title="Predict" />
+            android:title="Statistics" />
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_menu_user"
@@ -19,7 +19,7 @@
         <item
             android:id="@+id/nav_bill"
             android:icon="@drawable/ic_menu_bill"
-            android:title="Generate Bill" />
+            android:title="Bills and History" />
     </group>
 
 </menu>
