@@ -18,7 +18,7 @@ class App extends Component {
               <Switch>
                   <Route path='/home' component={Home} />
                   <Route path='/profile' component={Profile} />
-                  <Route path='/userdetails/:meterid' component={UserDetails} />
+                  <Route path='/userdetails/:username' component={UserDetails} />
                   <Redirect to="/home" />
               </Switch>
             </CSSTransition>
