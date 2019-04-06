@@ -13,8 +13,13 @@ class UserDetails extends Component {
             plot: null,
             history: null,
             showPlot: false,
+            currentuser: {
+                isBlocked: false,
+                username: null
+            }
         };
         this.onClick = this.onClick.bind(this);
+        this.handleSupply = this.handleSupply.bind(this);
     }
     
     componentDidMount() {
@@ -38,11 +43,39 @@ class UserDetails extends Component {
                 this.setState({
                     history: bills
                 })
+            });
+        axios.get('http://smart-meter-guj.herokuapp.com/rest/user/'+ this.props.match.params.username +'/?format=json')
+            .then(res => {
+                this.setState({
+                    currentuser: {
+                        ...this.state.currentuser,
+                        isBlocked: res.data.meter_status,
+                        username: this.props.match.params.username
+                    }
+                });
             })
     }
 
     onClick() {
         this.setState({showPlot: true})
+    }
+
+    handleSupply() {
+        const { username } = this.props.match.params
+        axios.get('http://smart-meter-guj.herokuapp.com/rest/user/'+ username +'/?format=json')
+            .then(res => {
+                axios.patch('http://smart-meter-guj.herokuapp.com/rest/user/' + username + '/', {
+                    "meter_status": res.data.meter_status ? false : true
+                });
+
+                this.setState({
+                    currentuser: {
+                        ...this.state.currentuser,
+                        isBlocked: res.data.meter_status ? false: true,
+                        username: username
+                    }
+                });
+            });
     }
 
     render() {
@@ -62,8 +95,8 @@ class UserDetails extends Component {
                             <Button variant="contained" color="primary" onClick={this.onClick}>
                             Generate Graph
                             </Button>
-                            <Button variant="contained" color="secondary">
-                            Block Supply
+                            <Button variant="contained" color="secondary" onClick={this.handleSupply}>
+                            {!this.state.currentuser.isBlocked ? "Unblock Supply" : "Block Supply"}
                             </Button>
                         </div>
                         <Card style={{display: visible ? 'inline-block' : 'none', padding:'20px', marginTop: '40px'}}>
