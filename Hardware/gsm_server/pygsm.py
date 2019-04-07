@@ -66,7 +66,7 @@ def main():
                 status = bool(int(ser.readline().decode("ASCII").strip()))
                 print(status, 'ssssssssssssssssssss')
                 check_status(status, user, ser)
-                #push_to_rest(user, send_dict)
+                push_to_rest(user, send_dict)
                 print(send_dict)
                 print(user, status)
                 sleep(1)

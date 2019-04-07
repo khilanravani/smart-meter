@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <SoftwareSerial.h>
-SoftwareSerial mySerial(9, 10);
+SoftwareSerial mySerial(10, 9);
 char msg;
 char call;
 
@@ -8,7 +8,7 @@ void SendMessage()
 {
 	mySerial.println("AT+CMGF=1");					 //Sets the GSM Module in Text Mode
 	delay(1000);									 // Delay of 1000 milli seconds or 1 second
-	mySerial.println("AT+CMGS=\"+918200060178\"\r"); // Replace x with mobile number
+	mySerial.println("AT+CMGS=\"+917600931609\"\r"); // Replace x with mobile number
 	delay(1000);
 	mySerial.println("toggle"); // The SMS text you want to send
 	delay(100);
@@ -48,6 +48,6 @@ void loop()
 			ReceiveMessage();
 			break;
 		}
-	if (mySerial.available() > 0)
+	while (mySerial.available() > 0)
 		Serial.write(mySerial.read());
 }
