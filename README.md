@@ -6,8 +6,21 @@ Today, government or private organizations need to personally visit the industri
 
 Our project is a blend of IoT, AI, and web development. So we divided our team into three section, one section would focus on hardware integration and optimization, another one on prediction models and the last one would focus on web application and Android application development. First, we create and test all the separate entities and then integrate it to create the final product. In this way all the entities can be tested rigorously as well as work can be completed parallelly. This approach would significantly reduce the time and assure well tested and optimized entities.
 
-![alt text](/imgs/hardware_pics/hw3.jpg)
-![alt text](/imgs/hardware_pics/hw4.jpg)
+<table>
+    <tr>
+        <td><img src="imgs/hardware_pics/hw3.jpg" alt="Hardware Image"></td>
+        <td><img src="imgs/hardware_pics/hw4.jpg" alt="Hardware Image"></td>
+    </tr>
+    <tr>
+        <td><img src="imgs/screenshots/app_drawer.png" alt="Android App Drawer"></td>
+        <td><img src="imgs/screenshots/app_home.png" alt="Android App Home page"></td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <td><img src="imgs/screenshots/web_user_profile_2.png" alt="User Profile Page Web App"></td>
+    </tr>
+</table>
 
 ## Features
 
@@ -56,7 +69,14 @@ In this era where computer-based technologies dominate every section of our soci
 
 ## Team
 
-[Harshendra Shah](https://github.com/harshendrashah/)
-[Heet sankesara](https://github.com/hsankesara/)
-[Khilan Ravani](https://github.com/khilanravani)
-[Kshitij Palghane](https://github.com/horizon00)
+[Harshendra Shah](https://github.com/harshendrashah/) : Android and Web Application 
+
+[Heet sankesara](https://github.com/hsankesara/) : Django Server, REST API and Interfacing
+
+[Khilan Ravani](https://github.com/khilanravani) : Arima Implemntation and Documentaion
+
+[Kshitij Palghane](https://github.com/horizon00) : Hardware Architecture Design, Implementation and Testing
+
+## Contributing
+
+Found a bug? Create an **[issue](https://github.com/Hsankesara/smart-meter/issues/new)**.
