@@ -1,6 +1,6 @@
 # Smart Meter Hardware
 
-![alt text](/imgs/hardware_pics/hw_proto.jpg)
+![alt text](/imgs/hardware_pics/hw_topview.jpg)
 
 ## Hardware Architecture
 
@@ -23,4 +23,4 @@ switch the electricity connection of the each home from the server.
 ● For this, one IGBT/relay module is connected between the ac mains power
 lines and the smart electricity meter.
 
-![alt text](/imgs/hardware_pics/hw_proto2.jpg)
+![alt text](/imgs/hardware_pics/hw2.jpg)
