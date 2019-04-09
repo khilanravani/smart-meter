@@ -17,14 +17,14 @@ App fetches the data from the deployed REST API and renders it on the UI.
 
 <table>
     <tr>
-        <td><img src = "../imgs/screenshots/app_login.png"></td>
-        <td><img src="../imgs/screenshots/app_home.png"></td>
-        <td><img src="../imgs/screenshots/app_drawer.png"></td>
+        <td><img src = "../imgs/screenshots/app_login.png" alt="Login Page"></td>
+        <td><img src="../imgs/screenshots/app_home.png" alt="Home Page"></td>
+        <td><img src="../imgs/screenshots/app_drawer.png" alt="Navigation Drawer"></td>
     </tr>
     <tr>
-        <td><img src = "../imgs/screenshots/app_billing.png"></td>
-        <td><img src="../imgs/screenshots/app_graph.png"></td>
-        <td><img src="../imgs/screenshots/app_user_profile.png"></td>
+        <td><img src = "../imgs/screenshots/app_billing.png" alt="Bills and History"></td>
+        <td><img src="../imgs/screenshots/app_graph.png" alt="Statistics Page"></td>
+        <td><img src="../imgs/screenshots/app_user_profile.png" alt="User Profile"></td>
     </tr>
 </table>
 
