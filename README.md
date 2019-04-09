@@ -73,7 +73,7 @@ In this era where computer-based technologies dominate every section of our soci
 
 [Heet sankesara](https://github.com/hsankesara/) : Django Server, REST API and Interfacing
 
-[Khilan Ravani](https://github.com/khilanravani) : Arima Implemntation and Documentaion
+[Khilan Ravani](https://github.com/khilanravani) : Arima Implementation and Documentaion
 
 [Kshitij Palghane](https://github.com/horizon00) : Hardware Architecture Design, Implementation and Testing
 
